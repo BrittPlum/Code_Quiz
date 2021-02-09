@@ -1,0 +1,7 @@
+var startButton = document.getElementById("startButton")
+var timer = document.getElementById("timer")
+var questions = document.getElementById("questions")
+var answers = document.getElementById("answers")
+var score = document.getElementById("score")
+var highScore = document.getElementById("highScore")
+var initials = document.getElementById("initials")
