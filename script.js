@@ -1,7 +1,10 @@
 var startButton = document.getElementById("startButton")
 var timer = document.getElementById("timer")
 var questions = document.getElementById("questions")
-var answers = document.getElementById("answers")
+var answerA =document.getElementById("a")
+var answerB =document.getElementById("b")
+var answerC =document.getElementById("c")
+var answerD =document.getElementById("d")
 var score = document.getElementById("score")
 var highScore = document.getElementById("highScore")
 var initials = document.getElementById("initials")
@@ -15,10 +18,10 @@ var initials = document.getElementById("initials")
 
 //Logic of program 
 // 1. press the start btton x
-// 2. triggers a timer 
-// 2a. that starts a countdown  
-// 2b. presents user with question 
-// 3a. choose an answer if wrong time is deducted 
+// 2. triggers a timer x
+// 2a. that starts a countdown  x
+// 2b. presents user with question x
+// 3a. choose an answer if answer is wrong than time is deducted 
 // 3b. if correct on to next question
 // 4a. timer runs out game over 
 // 4b. run out of questions you win
@@ -111,18 +114,39 @@ var question10 = {
 
 var questionList = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
 
-
-
+var count = 100;
 
 function gameStart() {
+    count = 100
+    startButton.disabled = true;
+    var questNumber = 0;
     timerCountdown(); 
-    // getQuestion();
+    getQuestion(questionList[questNumber]);
+    var currentQuestion = questionList[questNumber];
+    var correctAnswer = currentQuestion.value; 
+    $(".answer").on("click", checkAnswer);
+    function checkAnswer() {
+        if (this.value == correctAnswer) {
+            questNumber++;
+        }
+        else {
+            count -=5;
+        }
+    }
 
+}    
+
+
+
+function getQuestion(currentQuest) {
+    questions.textContent = currentQuest.question;
+    answerA.textContent = "A. " + currentQuest.a;
+    answerB.textContent = "B. " + currentQuest.b;
+    answerC.textContent = "C. " + currentQuest.c;
+    answerD.textContent = "D. " + currentQuest.d;
 }
 
-
 function timerCountdown() {
-    var count = 100;
     timer.textContent = count;
     var countDown = setInterval(function() {
       if (count > 0){ count--;
@@ -130,6 +154,7 @@ function timerCountdown() {
     } 
       else {
         clearInterval(countDown);
+        startButton.disabled = false;
       }      
     }, 1000);
 
