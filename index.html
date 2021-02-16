@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
-    <script>src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
 </head>
 
 <body>
@@ -17,38 +18,51 @@
 
         <section>
             <button id="startButton">Start</button>
-            <h2>Timer</h2>
-            <p><span id="timer">0</span></p>
+            <br>
+            <br>
+            <button id="ruleButton">Rules</button>
+            <br>
+            <br>
+            <div class="col-6 mx-auto">
+            <div class="card  border-dark">
+                <div class="card-body">
+                    <h2>Timer</h2>
+                    <p><span id="timer">0</span></p>
+                </div>
+            </div>
+            </div>
         </section>
 
         <sectiion>
             <div>
-                <p><span id="questions">Questions</span></p>
+                <h2 id="questions">Questions</h2>
             </div>
+            <br>
             <div>
                 <ul>
-                    <li id="a" class="answer" value="a"></li>
-                    <li id="b" class="answer" value="b"></li>
-                    <li id="c" class="answer" value="c"></li>
-                    <li id="d" class="answer" value="d"></li>
+                    <button id="a" class="answer" value="a"></button>
+                    <button id="b" class="answer" value="b"></button>
+                    <button id="c" class="answer" value="c"></button>
+                    <button id="d" class="answer" value="d"></button>
                 </ul>
             </div>
         </sectiion>
+        
+      
         <section>
-            <h2>Score</h2>
-            <p><span id="score">0</span></p>
-            </section>
-        <section>
-        <h2>High Score</h2>
-        <p><span id="highScore">0</span></p>
+            <h2>High Score</h2>
+            <p><span id="highScore">0</span></p>
         </section>
+        
         <section>
             <h2>Initials</h2>
             <p><span id="initials">0</span></p>
             </section>
+
     </main>
 
     <script src="script.js"></script>
+
 </body>
 
 </html>

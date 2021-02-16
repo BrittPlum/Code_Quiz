@@ -1,34 +1,25 @@
+//Logic of program 
+// 1. press the start btton x
+// 2. triggers a timer x
+// 2a. that starts a countdown  x
+// 2b. presents user with question x
+// 3a. choose an answer if answer is wrong than time is deducted x 
+// 3b. if correct on to next question x
+// 4a. timer runs out game over x
+// 4b. run out of questions you win x
+// 5. store count as score and users initials x
+
 var startButton = document.getElementById("startButton")
+var ruleButton = document.getElementById("ruleButton")
 var timer = document.getElementById("timer")
 var questions = document.getElementById("questions")
 var answerA =document.getElementById("a")
 var answerB =document.getElementById("b")
 var answerC =document.getElementById("c")
 var answerD =document.getElementById("d")
-var score = document.getElementById("score")
 var highScore = document.getElementById("highScore")
 var initials = document.getElementById("initials")
 
-// start button variable that targets the timmer variable to start a count down function
-// function var count that takes time off the clock when incorrect answers are chossen
-// questions with multipul choice answers
-// answers that are presented in a  that interact with timmer if answer is wrong time is subtrtacted and results are stored in score container
-// score container that shows score
-// container to save initials and scores 
-
-//Logic of program 
-// 1. press the start btton x
-// 2. triggers a timer x
-// 2a. that starts a countdown  x
-// 2b. presents user with question x
-// 3a. choose an answer if answer is wrong than time is deducted 
-// 3b. if correct on to next question
-// 4a. timer runs out game over 
-// 4b. run out of questions you win
-// 5. store count as score and users initials 
-
-// What we will need 
-// questions array; timer; incorrect answer function that subtracts time off; function that gives next question; query user for initials; store score
 
 // Question variables
 var question1 = {
@@ -112,55 +103,91 @@ var question10 = {
     value:"a"
 }
 
+// Question list variable 
 var questionList = [question1, question2, question3, question4, question5, question6, question7, question8, question9, question10];
 
+//Global variables
 var count = 100;
+var correctAnswer;
+var questNumber;
+var countDown; 
+var userData;
+
+// 
+if (localStorage.getItem("score") === undefined) {
+    userData = {
+    userInitial: "", 
+    userScore: ""
+    }
+}
+else {
+    userData = JSON.parse(localStorage.getItem("score"));
+}
 
 function gameStart() {
     count = 100
     startButton.disabled = true;
-    var questNumber = 0;
+    questNumber = 0;
     timerCountdown(); 
-    getQuestion(questionList[questNumber]);
-    var currentQuestion = questionList[questNumber];
-    var correctAnswer = currentQuestion.value; 
-    $(".answer").on("click", checkAnswer);
-    function checkAnswer() {
-        if (this.value == correctAnswer) {
-            questNumber++;
-        }
-        else {
-            count -=5;
-        }
-    }
-
+    getQuestion(questNumber);
 }    
 
+function checkAnswer() {
+    if (this.value == correctAnswer) {
+        questNumber++;
+        getQuestion(questNumber);
+    }
+    else {
+        count -=5;
+        timer.textContent = count;
+    }
+}
 
-
-function getQuestion(currentQuest) {
+function getQuestion(i) {
+    if (i < questionList.length) {
+    var currentQuest = questionList[i];
+    correctAnswer = currentQuest.value; 
     questions.textContent = currentQuest.question;
     answerA.textContent = "A. " + currentQuest.a;
     answerB.textContent = "B. " + currentQuest.b;
     answerC.textContent = "C. " + currentQuest.c;
     answerD.textContent = "D. " + currentQuest.d;
+    }
+    // Win condition
+    else {
+        clearInterval(countDown);
+        startButton.disabled = false;
+        userData.userInitial = prompt("Great Job You Won!! Please Log Your Initials!!");
+        userData.userScore = count;
+        highScore.textContent = userData.userInitial;
+        initials.textContent = userData.userScore; 
+        localStorage.setItem("score", JSON.stringify(userData));
+    }
 }
 
 function timerCountdown() {
     timer.textContent = count;
-    var countDown = setInterval(function() {
+    countDown = setInterval(function() {
       if (count > 0){ count--;
         timer.textContent = count;   
     } 
       else {
         clearInterval(countDown);
         startButton.disabled = false;
+        alert("Game Over");
       }      
     }, 1000);
 
 }
 
-// Runtime 
-startButton.addEventListener("click", gameStart)
+function rules() {
+    alert("When the timer starts you will be presented with a question and multiple choice ")
+}
 
+// Runtime 
+startButton.addEventListener("click", gameStart);
+$(".answer").on("click", checkAnswer);
+highScore.textContent = userData.userScore;
+initials.textContent = userData.userInitial;
+ruleButton.addEventListener("click", rules)
 
