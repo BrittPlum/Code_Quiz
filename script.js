@@ -114,7 +114,7 @@ var countDown;
 var userData;
 
 // 
-if (localStorage.getItem("score") === undefined) {
+if (localStorage.getItem("score") === null) {
     userData = {
     userInitial: "", 
     userScore: ""
@@ -181,7 +181,7 @@ function timerCountdown() {
 }
 
 function rules() {
-    alert("When the timer starts you will be presented with a question and multiple choice ")
+    alert("When the timer starts you will be presented with a question and four multiple choice answers. you will choose one of the answers and if you choose wrong 5 seconds will be deducted off the timer. The time that you are left with at the end of the quiz will be your score and you will be prompted to enter you initials and this will log your initials and score.")
 }
 
 // Runtime 
